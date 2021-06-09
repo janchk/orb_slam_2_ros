@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 StereoNode::StereoNode (const ORB_SLAM2::System::eSensor sensor, ros::NodeHandle &node_handle, image_transport::ImageTransport &image_transport) : Node (sensor, node_handle, image_transport) {
     left_sub_ = new message_filters::Subscriber<sensor_msgs::Image> (node_handle, "/camera/fisheye1/rect/image", 1);
     right_sub_ = new message_filters::Subscriber<sensor_msgs::Image> (node_handle, "/camera/fisheye2/rect/image", 1);
-    camera_info_topic_ = "/camera/fisheye1/rect/camera_info/";
+    camera_info_topic_ = "/camera/fisheye1/camera_info";
 
     sync_ = new message_filters::Synchronizer<sync_pol> (sync_pol(10), *left_sub_, *right_sub_);
     sync_->registerCallback(boost::bind(&StereoNode::ImageCallback, this, _1, _2));
